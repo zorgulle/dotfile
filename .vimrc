@@ -15,8 +15,12 @@ nnoremap <C-e> <Esc>$
 nnoremap <C-a> <Esc>^
 
 
+"See You Esc key
 inoremap <Esc> <Nop>
 inoremap jk <Esc>
+
+"Bye Bye Ex mode
+noremap Q <Nop>
 
 
 "CONFIG POWERLINE
@@ -25,15 +29,13 @@ set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256       " Explicitly tell Vim that the terminal supports 256 colors
 
+
 "TAB
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-
-set textwidth=79
-set wrap linebreak nolist
 
 " Show indent and ending whitespace
 set list
