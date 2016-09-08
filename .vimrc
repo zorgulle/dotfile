@@ -1,19 +1,37 @@
-execute pathogen#infect()
-filetype plugin indent on
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+
+"""Status Line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+"""Syntax checker
+Plugin 'scrooloose/syntastic'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
 set autoindent
 set smartindent
 syntax on
 
-colorscheme wombat256
 set background=dark
 
 let mapleader=","
-
-inoremap <C-e> <Esc>$a
-inoremap <C-a> <Esc>^i
-nnoremap <C-e> <Esc>$
-nnoremap <C-a> <Esc>^
-
 
 "See You Esc key
 inoremap <Esc> <Nop>
@@ -21,13 +39,6 @@ inoremap jk <Esc>
 
 "Bye Bye Ex mode
 noremap Q <Nop>
-
-
-"CONFIG POWERLINE
-set nocompatible   " Disable vi-compatibility
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256       " Explicitly tell Vim that the terminal supports 256 colors
 
 
 "TAB
@@ -49,6 +60,16 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 
-autocmd BufNewFile *.py so $HOME/.vim/py_header.txt
-autocmd BufNewFile *.py exe "% s/\\(.*date.*\\)/\\1 '" .strftime("%d-%m-%Y") ."'"
-autocmd BufNewFile *.py exe "normal! G"
+"Status line 
+let g:airline#extensions#tabline#enabled = 1
+
+"Syntax checker
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint']
