@@ -22,6 +22,10 @@ Plugin 'vim-airline/vim-airline-themes'
 """Syntax checker
 Plugin 'scrooloose/syntastic'
 
+"Fuzzy finder
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -30,6 +34,10 @@ set smartindent
 syntax on
 
 set background=dark
+colorscheme desert
+
+"disable mouse
+set mouse=
 
 let mapleader=","
 
@@ -73,3 +81,60 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
+
+" FZF
+" ----------------------------------
+
+nmap <silent> <c-p> :FZF<CR>
+
+
+
+nnoremap <silent> <Leader>C :call fzf#run({
+			\   'source':
+			\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+			\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+			\   'sink':    'colo',
+			\   'options': '+m',
+			\   'left':    30
+			\ })<CR>
+
+
+
+function! s:buflist()
+	redir => ls
+	silent ls
+	redir END
+	return split(ls, '\n')
+endfunction
+
+
+
+function! s:bufopen(e)
+	execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+			\ 'source':  reverse(<sid>buflist()),
+			\ 'sink':    function('<sid>bufopen'),
+			\ 'options': '+m',
+			\ 'down':    len(<sid>buflist()) + 2
+			\ })<CR>
+
+
+
+command! FZFMru call fzf#run({
+			\ 'source':  reverse(s:all_files()),
+			\ 'sink':    'edit',
+			\ 'options': '-m -x +s',
+			\ 'down':    '40%' })
+
+
+
+function! s:all_files()
+	return extend(
+				\ filter(copy(v:oldfiles),
+				\        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+				\ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
