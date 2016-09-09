@@ -28,6 +28,10 @@ Plugin 'junegunn/fzf.vim'
 
 Plugin 'jnurmine/Zenburn'
 
+
+"NERDTRee
+Plugin 'scrooloose/nerdtree'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -84,6 +88,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
+
+
+"NERDTree
+noremap <F2> <ESC>:NERDTreeToggle<CR>
 
 
 " FZF
