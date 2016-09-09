@@ -26,15 +26,18 @@ Plugin 'scrooloose/syntastic'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
+Plugin 'jnurmine/Zenburn'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
 set autoindent
 set smartindent
 syntax on
+set t_Co=256
 
-set background=dark
-colorscheme desert
+set background=light
+colorscheme zenburn
 
 "disable mouse
 set mouse=
@@ -82,10 +85,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
 
+
 " FZF
 " ----------------------------------
 
 nmap <silent> <c-p> :FZF<CR>
+
 
 
 
