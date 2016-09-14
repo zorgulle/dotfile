@@ -28,6 +28,8 @@ Plugin 'junegunn/fzf.vim'
 
 Plugin 'jnurmine/Zenburn'
 
+Plugin 'majutsushi/tagbar'
+
 
 "NERDTRee
 Plugin 'scrooloose/nerdtree'
